@@ -1,0 +1,6 @@
+name: Toast
+version: @version@
+main: com.scrappymc.toast.Toast
+api-version: 1.13
+authors: [Hypermoron]
+description: Hi, I'm cities
