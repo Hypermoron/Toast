@@ -1,2 +1,2 @@
 # Toast
-A very simple Minecraft plugin that allows the toasting of bread
+A simple plugin that allows bread to be cooked into toast. Created for the ToastCraft server.
