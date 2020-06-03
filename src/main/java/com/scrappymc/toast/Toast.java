@@ -3,13 +3,8 @@ package com.scrappymc.toast;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Furnace;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.FurnaceBurnEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,29 +24,7 @@ public final class Toast extends JavaPlugin implements Listener {
         SmokingRecipe toastSmokerRecipe = new SmokingRecipe(toastKey, toast, Material.BREAD, 0.35F, 100);
         getServer().addRecipe(toastFurnaceRecipe);
         getServer().addRecipe(toastSmokerRecipe);
-        getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new ToastListener(), this);
     }
 
-    @EventHandler
-    public void onConsume(PlayerItemConsumeEvent event) {
-        Player player = event.getPlayer();
-        ItemStack item = event.getItem();
-        ItemMeta meta = item.getItemMeta();
-        if (item.getType() == Material.BREAD && meta.getEnchantLevel(Enchantment.LUCK) == 1) {
-            int hunger = player.getFoodLevel();
-            if (hunger < 15) {
-                player.setFoodLevel(hunger + 2);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onFurnaceBurn(FurnaceBurnEvent event) {
-        Furnace furnace = (Furnace) event.getBlock().getState();
-        ItemStack item = furnace.getInventory().getSmelting();
-        ItemMeta meta = item.getItemMeta();
-        if (item.getType() == Material.BREAD && meta.getEnchantLevel(Enchantment.LUCK) == 1) {
-            event.setCancelled(true);
-        }
-    }
 }
